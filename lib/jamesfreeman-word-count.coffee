@@ -25,9 +25,10 @@ module.exports = JamesfreemanWordCount =
     jamesfreemanWordCountViewState: @jamesfreemanWordCountView.serialize()
 
   toggle: ->
-    console.log 'JamesfreemanWordCount was toggled!'
-
-    if @modalPanel.isVisible()
-      @modalPanel.hide()
-    else
-      @modalPanel.show()
+  if @modalPanel.isVisible()
+    @modalPanel.hide()
+  else
+    editor = atom.workspace.getActiveTextEditor()
+    words = editor.getText().split(/\s+/).length
+    @yourNameWordCountView.setCount(words)
+    @modalPanel.show()
